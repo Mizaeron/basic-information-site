@@ -35,6 +35,22 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  if (req.url === "/contact-me") {
+    const filePath = path.join(__dirname, "contact-me.html");
+
+    fs.readFile(filePath, (err, content) => {
+      if (err) {
+        res.writeHead(500, { "Content-Type": "text/plain" });
+        res.end("Could not load content-me.html");
+        return;
+      }
+
+      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      res.end(content);
+    });
+    return;
+  }
+
   res.writeHead(404, { "Content-Type": "text/plain" });
   res.end("Not found");
 });
